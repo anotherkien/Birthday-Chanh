@@ -1206,7 +1206,7 @@
 
 			playButton.addEventListener("click", function () {
 				if (audio.paused) {
-					audio.play();
+					audio.play().catch(error => console.error("Music play failed:", error));
 					playButton.textContent = "Pause Music 🎵";
 				} else {
 					audio.pause();
