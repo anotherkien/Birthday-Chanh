@@ -42,6 +42,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        #popup-content img, #popup-content video {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+
         .future {
             fill: gray;
         }
@@ -58,7 +63,6 @@
         }
     </style>
 </head>
-
 <body>
     <h1>The Love Adventure Map ❤️</h1>
     <p>Click on a location to reveal a memory!</p>
@@ -1144,14 +1148,12 @@
 		l-0.938-0.303l-0.847-0.399l-1.076-0.728l-0.356-0.08l-0.391,0.129l-0.3,0.264l-0.125,0.27l0.098,0.356l0.055,0.49l-0.578,0.708
 		l-2.185,0.763l-3.718,0.809L386.886,517.651z" />
             </g>
-            <g id="Copyright">
-                <text transform="matrix(1 0 0 1 681.6426 577.5916)" class="st8 st9">© Vemaps.com</text>
-            </g>
         </svg>
 
         <div id="popup" class="popup"></div>
     </div>
 
+    <!-- Music Button -->
     <button id="play-button">Play Music 🎵</button>
 
     <audio id="bg-music" loop>
@@ -1159,21 +1161,52 @@
     </audio>
 
     <script>
-        document.querySelectorAll('.location').forEach(location => {
-            location.addEventListener('click', function (event) {
-                let popup = document.getElementById('popup');
-                popup.innerHTML = `<p>${this.dataset.message}</p>`;
-                if (this.dataset.media) {
-                    popup.innerHTML += `<img src="${this.dataset.media}" width="200">`;
-                }
-                popup.style.display = 'block';
-                popup.style.left = event.pageX + 'px';
-                popup.style.top = event.pageY + 'px';
-            });
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+            const popup = document.getElementById("popup");
+            const popupContent = document.getElementById("popup-content");
 
-        document.getElementById('play-button').addEventListener('click', function () {
-            document.getElementById('bg-music').play();
+            document.querySelectorAll(".location").forEach(location => {
+                location.addEventListener("click", function (event) {
+                    let title = this.dataset.title;
+                    let message = this.dataset.message;
+                    let media = this.dataset.media;
+
+                    popupContent.innerHTML = `<h3>${title}</h3><p>${message}</p>`;
+
+                    if (media) {
+                        if (media.endsWith(".mp4")) {
+                            popupContent.innerHTML += `<video controls width="250"><source src="${media}" type="video/mp4"></video>`;
+                        } else {
+                            popupContent.innerHTML += `<img src="${media}" width="250">`;
+                        }
+                    }
+
+                    popup.style.display = "block";
+                    popup.style.left = event.pageX + "px";
+                    popup.style.top = event.pageY + "px";
+                });
+            });
+
+            // Hide popup when clicking outside
+            document.addEventListener("click", function (event) {
+                if (!event.target.classList.contains("location")) {
+                    popup.style.display = "none";
+                }
+            });
+
+            // Music Player
+            const playButton = document.getElementById("play-button");
+            const audio = document.getElementById("bg-music");
+
+            playButton.addEventListener("click", function () {
+                if (audio.paused) {
+                    audio.play();
+                    playButton.textContent = "Pause Music 🎵";
+                } else {
+                    audio.pause();
+                    playButton.textContent = "Play Music 🎵";
+                }
+            });
         });
     </script>
 </body>
