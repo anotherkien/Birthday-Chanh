@@ -1171,7 +1171,7 @@
 			const popup = document.getElementById("popup");
 			const popupContent = document.getElementById("popup-content");
 
-			document.querySelectorAll(".province").forEach(province => {
+			document.querySelectorAll("[data-title]").forEach(province => {
 				province.addEventListener("click", function (event) {
 					let title = this.dataset.title;
 					let message = this.dataset.message;
