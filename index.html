@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,14 +56,16 @@
 
         .popup {
             display: none;
-            position: absolute;
+            position: fixed;
             background: white;
-            padding: 10px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: left;
             z-index: 20;
-            max-width: 300px;
+            max-width: 500px;
+            min-height: 300px;
+            width: 80%;
         }
 
         #play-button {
@@ -1214,7 +1219,7 @@
 
             // Province interactions
             document.querySelectorAll(".province").forEach(province => {
-                // Click to show popup with only YouTube video
+                // Click to show popup with only media
                 province.addEventListener("click", function (event) {
                     const media = this.dataset.media;
                     const popupContent = document.getElementById("popup-content");
@@ -1222,25 +1227,28 @@
                     // Clear previous content
                     popupContent.innerHTML = "";
 
-                    if (media && media.includes("youtube.com")) {
-                        popupContent.innerHTML = `<iframe width="250" height="140" src="${media}" frameborder="0" allowfullscreen></iframe>`;
+                    if (media) {
+                        if (media.includes("youtube.com")) {
+                            // Convert YouTube watch URL to embed URL
+                            const videoId = media.split("v=")[1]?.split("&")[0];
+                            if (videoId) {
+                                popupContent.innerHTML = `<iframe width="450" height="253" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+                            } else {
+                                popupContent.innerHTML = "Invalid YouTube URL";
+                            }
+                        } else if (media.endsWith(".mp4")) {
+                            popupContent.innerHTML = `<video controls width="450"><source src="${media}" type="video/mp4">Your browser does not support video.</video>`;
+                        } else {
+                            popupContent.innerHTML = `<img src="${media}" width="450" alt="Memory image">`;
+                        }
                     } else {
-                        popupContent.innerHTML = media ? `<img src="${media}" width="250" alt="Memory image">` : "No media available.";
+                        popupContent.innerHTML = "No media available.";
                     }
 
-                    let leftPos = event.pageX + 10;
-                    let topPos = event.pageY + 10;
-
-                    // Prevent popup from overflowing the screen
-                    if (leftPos + popup.offsetWidth > window.innerWidth) {
-                        leftPos -= popup.offsetWidth + 20;
-                    }
-                    if (topPos + popup.offsetHeight > window.innerHeight) {
-                        topPos -= popup.offsetHeight + 20;
-                    }
-
-                    popup.style.left = `${leftPos}px`;
-                    popup.style.top = `${topPos}px`;
+                    // Center the popup
+                    popup.style.left = "50%";
+                    popup.style.top = "50%";
+                    popup.style.transform = "translate(-50%, -50%)";
                     popup.style.display = "block";
                 });
 
