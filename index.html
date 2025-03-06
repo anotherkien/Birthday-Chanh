@@ -27,7 +27,8 @@
 
         .province {
             cursor: pointer;
-            filter: brightness(1.5) drop-shadow(0px 0px 5px #ff4081);;
+            filter: brightness(1.5) drop-shadow(0px 0px 5px #ff4081);
+            ;
             stroke: #ff4081;
             stroke-width: 2;
         }
@@ -1209,8 +1210,8 @@
             document.querySelectorAll(".province").forEach(province => {
                 // Click to show popup
                 province.addEventListener("click", function (event) {
-                    const title = this.dataset.title || "Unnamed Location";
-                    const message = this.dataset.message || "No memory available.";
+                    const title = this.dataset.title;
+                    const message = this.dataset.message;
                     const media = this.dataset.media;
 
                     const popupContent = document.getElementById("popup-content");
@@ -1224,9 +1225,24 @@
                         }
                     }
 
+                    if (media.includes("youtube.com")) {
+                        popupContent.innerHTML += `<iframe width="250" height="140" src="${media}" frameborder="0" allowfullscreen></iframe>`;
+                    }
+
+                    let leftPos = event.pageX + 10;
+                    let topPos = event.pageY + 10;
+
+                    // Prevent popup from overflowing the screen
+                    if (leftPos + popup.offsetWidth > window.innerWidth) {
+                        leftPos -= popup.offsetWidth + 20;
+                    }
+                    if (topPos + popup.offsetHeight > window.innerHeight) {
+                        topPos -= popup.offsetHeight + 20;
+                    }
+
+                    popup.style.left = `${leftPos}px`;
+                    popup.style.top = `${topPos}px`;
                     popup.style.display = "block";
-                    popup.style.left = `${event.pageX + 10}px`; // Offset to avoid overlap
-                    popup.style.top = `${event.pageY + 10}px`;
                 });
 
                 // Hover to show location marker
