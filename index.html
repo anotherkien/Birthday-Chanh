@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,24 +13,29 @@
             margin: 0;
             padding: 20px;
         }
+
         #map-container {
             position: relative;
             width: 80%;
             margin: auto;
         }
+
         svg {
             width: 100%;
             height: auto;
         }
+
         .province {
             cursor: pointer;
             transition: fill 0.3s, filter 0.3s;
         }
+
         .province:hover {
             filter: brightness(1.2);
             stroke: #ff4081;
             stroke-width: 2;
         }
+
         .location-marker {
             position: absolute;
             display: none;
@@ -42,11 +48,13 @@
             font-weight: bold;
             z-index: 10;
         }
+
         .location-marker img {
             width: 16px;
             height: 16px;
             margin-right: 5px;
         }
+
         .popup {
             display: none;
             position: absolute;
@@ -58,6 +66,7 @@
             z-index: 20;
             max-width: 300px;
         }
+
         #play-button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -68,11 +77,13 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
         #play-button:hover {
             background: #c2185b;
         }
     </style>
 </head>
+
 <body>
     <h1>The Love Adventure Map ❤️</h1>
     <p>Click on a province to reveal a memory!</p>
@@ -81,21 +92,82 @@
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 800 600" style="enable-background:new 0 0 800 600;" xml:space="preserve">
             <style type="text/css">
-                .st0 { fill: #F8A758; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st1 { fill: #8EC79A; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st2 { fill: #FFEB64; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st3 { fill: #AC8FC7; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st4 { fill: #89B8E4; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st5 { fill: #E89BBD; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st6 { fill: #FBD165; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st7 { fill: #BACE6B; stroke: #808080; stroke-width: 0.5; stroke-linecap: round; stroke-linejoin: round; }
-                .st8 { font-family: 'Roboto-Regular'; }
-                .st9 { font-size: 14px; }
+                .st0 {
+                    fill: #F8A758;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st1 {
+                    fill: #8EC79A;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st2 {
+                    fill: #FFEB64;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st3 {
+                    fill: #AC8FC7;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st4 {
+                    fill: #89B8E4;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st5 {
+                    fill: #E89BBD;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st6 {
+                    fill: #FBD165;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st7 {
+                    fill: #BACE6B;
+                    stroke: #808080;
+                    stroke-width: 0.5;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                }
+
+                .st8 {
+                    font-family: 'Roboto-Regular';
+                }
+
+                .st9 {
+                    font-size: 14px;
+                }
             </style>
             <g id="Vietnam">
                 <!-- Example province (Hanoi) -->
-                <path class="province st1" data-title="Hanoi - First Trip" data-message="Our first trip together in the capital!" data-media="images/hanoi.jpg"
-                    d="M461.373,422.334l-0.082-1.07l0.031-0.963l-0.095-0.939l-0.478-0.999l-0.987-1.121l-0.244-0.423l-0.142-0.538
+                <path class="province st1" data-title="Hanoi - First Trip"
+                    data-message="Our first trip together in the capital!" data-media="images/hanoi.jpg" d="M461.373,422.334l-0.082-1.07l0.031-0.963l-0.095-0.939l-0.478-0.999l-0.987-1.121l-0.244-0.423l-0.142-0.538
                     l-0.131-1.087l-0.396-0.905l-0.08-0.398l0.062-0.389l0.209-0.353l0.182-0.143l0.085-0.194l-0.011-0.234l-0.087-0.262l-0.549-0.403
                     l-0.091-0.513l3.56-8.63l1.074-0.536l1.033-0.584l1.431-1.109l0.311-0.198l0.349-0.119l4.258-0.592l4.45,0.145l0.616-0.085
                     l0.6-0.179l2.387-1.114l0.616-0.135l0.736-0.039l1.344,0.156l9.041,3.208l0.807,0.573l0.778,0.989l0.465,0.849l0.404,0.933
@@ -127,9 +199,9 @@
 
     <button id="play-button">Play Music 🎵</button>
     <audio id="bg-music" loop>
-        <source src="music/Taylor-Swift-Song.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
+        <source src="{{ url_for('static', filename='music/Taylor-Swift-Song.mp3') }}" type="audio/mp3">
     </audio>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -200,4 +272,5 @@
         });
     </script>
 </body>
+
 </html>
